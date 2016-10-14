@@ -1,0 +1,9 @@
+#!/bin/bash -ex
+
+test ${PUPPET_CA}
+test ${PUPPET_SERVER}
+
+puppet config set ca_server $PUPPET_CA --section agent
+puppet config set server $PUPPET_SERVER --section agent
+
+echo "*/5 * * * * root PATH=/opt/puppetlabs/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin; puppet agent -t >> /var/log/cron.log 2>&1" > /etc/cron.d/puppet-agent
