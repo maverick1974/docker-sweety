@@ -13,5 +13,5 @@ docker build -t mvisonneau/sweety .
 ### Run
 
 ```
-docker run -d -e PUPPET_CA=<your_ca> -e PUPPET_SERVER=<your_server> <yourname>/pptcb
+docker run -d -e PUPPET_CA=<your_ca> -e PUPPET_SERVER=<your_server> -e PUPPET_ROLE=<your_role> <yourname>/pptcb
 ```

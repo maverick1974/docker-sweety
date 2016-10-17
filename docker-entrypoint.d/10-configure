@@ -3,8 +3,14 @@
 RUN_FREQUENCY=${RUN_FREQUENCY:-1}
 test ${PUPPET_CA}
 test ${PUPPET_SERVER}
+test ${PUPPET_ROLE}
 
 /opt/puppetlabs/bin/puppet config set ca_server ${PUPPET_CA} --section agent
 /opt/puppetlabs/bin/puppet config set server ${PUPPET_SERVER} --section agent
 
 echo "*/${RUN_FREQUENCY} * * * * root PATH=/opt/puppetlabs/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin; /opt/puppetlabs/bin/puppet agent -t >> /var/log/cron.log 2>&1" > /etc/cron.d/puppet-agent
+
+cat << EOF > /opt/puppetlabs/facter/facts.d/role.yaml
+---
+role: ${PUPPET_ROLE}
+EOF
